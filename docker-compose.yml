@@ -1,11 +1,12 @@
 version: '2'
-
 services:
   app:
+    #https://github.com/rmsaitam/laravel8-jetstream-docker
     build:
       context: ./jetstream
       dockerfile: Dockerfile
     environment:
+      - VIRTUAL_HOST=agenda.jet
       - DB_HOST=mariadb
       - DB_USERNAME=my_user
       - DB_DATABASE=my_database
@@ -13,11 +14,9 @@ services:
     depends_on:
       - mariadb
     ports:
-      - 3000:3000
+      - 8000:80 #apache
     volumes:
-      - ./www:/app
-    depends_on: 
-      - mariadb
+      - ./www/:/var/www/html/
   adminer:
     image: adminer
     restart: always
